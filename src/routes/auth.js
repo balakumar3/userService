@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const { validateSignUpData } = require("../utils/validation");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const { userAuth } = require("../middlewares/auth");
+const { userAuth, userAuthStatus } = require("../middlewares/auth");
 
 authRouter.post("/auth/register", async (req, res) => {
     try {
@@ -61,8 +61,8 @@ authRouter.post("/auth/logout", userAuth, async (req, res) => {
     res.send("Logout is successfull!!");
 });
 
-authRouter.get("/auth/validateToken", userAuth, async (req, res) => {
-    res.status(200).send('User is valid');
+authRouter.get("/auth/validateToken", userAuthStatus, async (req, res) => {
+    res.status(200).json({ isValid: true });
 })
 
 module.exports = authRouter;
