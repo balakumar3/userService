@@ -16,6 +16,7 @@ npm run dev
 
 docker build -t user-service .
 docker run -it -p 3000:3000 user-service
+docker run -it -p 3000:3000 --add-host=host.docker.internal:host-gateway user-service
 
 add a validatetoken method:
 Dockerize the app

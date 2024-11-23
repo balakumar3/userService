@@ -41,6 +41,14 @@ const userSchema = new mongoose.Schema(
                 message: `{VALUE} is a invalid gender type`,
             },
         },
+        role: {
+            type: String,
+            required: true,
+            enum: {
+                values: ["customer", "restaurant"],
+                message: `{VALUE} is a invalid role `
+            },
+        },
         status: {
             type: String,
             default: "active",

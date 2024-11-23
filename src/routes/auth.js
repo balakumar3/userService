@@ -10,7 +10,7 @@ authRouter.post("/auth/register", async (req, res) => {
 
         validateSignUpData(req);
 
-        const { firstName, lastName, emailId, password, gender } = req.body;
+        const { firstName, lastName, emailId, password, gender, role } = req.body;
         const passwordHash = await bcrypt.hash(password, 10);
 
         const user = new User({
@@ -18,7 +18,8 @@ authRouter.post("/auth/register", async (req, res) => {
             lastName,
             emailId,
             password: passwordHash,
-            gender
+            gender,
+            role
         });
 
         await user.save();
@@ -62,7 +63,8 @@ authRouter.post("/auth/logout", userAuth, async (req, res) => {
 });
 
 authRouter.get("/auth/validateToken", userAuthStatus, async (req, res) => {
-    res.status(200).json({ isValid: true });
+    const { firstName, lastName, emailId, role } = req.user;
+    res.status(200).json({ isValid: true, firstName, lastName, emailId, role });
 })
 
 module.exports = authRouter;
